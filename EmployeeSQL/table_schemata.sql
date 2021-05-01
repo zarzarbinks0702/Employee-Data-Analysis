@@ -29,7 +29,6 @@ CREATE TABLE departments(
 create table dept_emp(
 	emp_no VARCHAR NOT NULL,
     dept_no VARCHAR NOT NULL,
-	PRIMARY KEY (dept_no),
 	FOREIGN KEY(dept_no) REFERENCES departments (dept_no)
 );
 
@@ -37,7 +36,6 @@ create table dept_emp(
 create table dept_manager(
     dept_no VARCHAR NOT NULL,
     emp_no VARCHAR NOT NULL,
-	PRIMARY KEY (dept_no),
 	FOREIGN KEY(dept_no) REFERENCES departments (dept_no),
 	FOREIGN KEY(emp_no) REFERENCES employees(emp_no)
 );
@@ -46,6 +44,5 @@ create table dept_manager(
 create table salaries(
     emp_no VARCHAR NOT NULL,
     salary INT NOT NULL,
-	PRIMARY KEY (emp_no),
 	FOREIGN KEY (emp_no) REFERENCES employees(emp_no)
 );
