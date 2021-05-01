@@ -1,40 +1,51 @@
---creating the table for departments
-create table departments(
-	dept_no VARCHAR,
-	dept_name VARCHAR
-);
-
---creating the table for department employees
-create table dept_emp(
-	emp_no INT,
-	dept_no VARCHAR
-);
-
---creating the table for department managers
-create table dept_manager(
-	dept_no VARCHAR,
-	emp_no INT
-);
-
---creating the table for employee information
-create table employees(
-emp_no INT,
-emp_title_id VARCHAR,
-birth_date DATE,
-first_name VARCHAR,
-last_name VARCHAR,
-sex VARCHAR(1),
-hire_date DATE
-);
-
---creating the table for salary information
-create table salaries(
-	emp_no VARCHAR,
-	salary INT
-);
-
---creating the table for employee titles
+--creating the table for employee titles (data imported from CSV)
 create table titles(
-	title_id VARCHAR,
-	title VARCHAR
+    title_id VARCHAR NOT NULL,
+    title VARCHAR NOT NULL,
+	PRIMARY KEY (title_id)
+);
+
+--creating the table for employee information (data imported from CSV)
+create table employees(
+    emp_no VARCHAR NOT NULL,
+    emp_title_id VARCHAR NOT NULL,
+    birth_date DATE NOT NULL,
+    first_name VARCHAR NOT NULL,
+    last_name VARCHAR NOT NULL,
+    sex VARCHAR(1) NOT NULL,
+    hire_date DATE NOT NULL,
+	PRIMARY KEY (emp_no),
+	FOREIGN KEY(emp_title_id) REFERENCES titles(title_id)
+);
+
+--creating the table for departments (data imported from CSV)
+CREATE TABLE departments(
+    dept_no VARCHAR NOT NULL,
+    dept_name VARCHAR NOT NULL,
+    PRIMARY KEY (dept_no)
+);
+
+--creating the table for department employees (data imported from CSV)
+create table dept_emp(
+	emp_no VARCHAR NOT NULL,
+    dept_no VARCHAR NOT NULL,
+	PRIMARY KEY (dept_no),
+	FOREIGN KEY(dept_no) REFERENCES departments (dept_no)
+);
+
+--creating the table for department managers (data imported from CSV)
+create table dept_manager(
+    dept_no VARCHAR NOT NULL,
+    emp_no VARCHAR NOT NULL,
+	PRIMARY KEY (dept_no),
+	FOREIGN KEY(dept_no) REFERENCES departments (dept_no),
+	FOREIGN KEY(emp_no) REFERENCES employees(emp_no)
+);
+
+--creating the table for salary information (data imported from CSV)
+create table salaries(
+    emp_no VARCHAR NOT NULL,
+    salary INT NOT NULL,
+	PRIMARY KEY (emp_no),
+	FOREIGN KEY (emp_no) REFERENCES employees(emp_no)
 );
