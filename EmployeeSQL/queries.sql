@@ -29,7 +29,7 @@ on (dp.dept_no = de.dept_no);
 select e.first_name, e.last_name, e.sex
 from employees e
 where (e.first_name = 'Hercules')
-and (e.last_name like 'B%')
+and (e.last_name like 'B%');
 
 --List all employees in the Sales department, including their employee number, last name, first name, and department name.
 select e.emp_no, e.last_name, e.first_name, dp.dept_name
@@ -48,13 +48,10 @@ on (de.emp_no = e.emp_no)
 join departments dp
 on (dp.dept_no = de.dept_no)
 where dp.dept_name = 'Sales'
-union
-select e.emp_no, e.last_name, e.first_name, dp.dept_name
-from employees e
-join dept_emp de
-on (de.emp_no = e.emp_no)
-join departments dp
-on (dp.dept_no = de.dept_no)
-where dp.dept_name = 'Development';
+or dp.dept_name = 'Development';
 
 --In descending order, list the frequency count of employee last names, i.e., how many employees share each last name.
+select e.last_name, count(e.first_name) as name_count
+from employees e
+group by e.last_name
+order by name_count desc;
